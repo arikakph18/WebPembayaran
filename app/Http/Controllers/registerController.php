@@ -1,14 +1,15 @@
-<?php
+<!-- <?php
 
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User
+use App\Models\User;
 
 class registerController extends Controller
 {
     public function index(){
-        return view('auth.register');
+        // return view('auth.register');
+        return 'register';
     }
 
     public function store(Request $request)
@@ -21,12 +22,12 @@ class registerController extends Controller
 
         ]);
         
-        User::create(
-            'name' => $request->name,
-            'email' => $request ->email,
-            'password' => bcrypt($request->password)
-        );
+        // User::create(
+        //     'name' => $request->name,
+        //     'email' => $request ->email,
+        //     'password' => bcrypt($request->password)
+        // );
 
         return to_route('login')
     }
-}
+} -->
