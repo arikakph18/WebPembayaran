@@ -51,13 +51,15 @@
                 
 
             </li>
-            
+
             <li
-                class="sidebar-item  has-sub">
-                <a href="#" class='sidebar-link'>
-                    <i class="bi bi-stack"></i>
+                class="sidebar-item  ">
+                <a href="form-layout.html" class='sidebar-link'>
+                    <i class="bi bi-file-earmark-medical-fill"></i>
                     <span>Data Payment</span>
                 </a>
+                
+
             </li>
             
             <li
@@ -212,7 +214,7 @@
             
             <li
                 class="sidebar-item  ">
-                <a href="https://github.com/zuramai/mazer#donation" class='sidebar-link'>
+                <a href="https://github.com/zuramai/mazer#donation" class='sidebar-link' onclick="logout()">
                     <i class="bi bi-cash"></i>
                     <span>Logout</span>
                 </a>
@@ -224,3 +226,7 @@
     </div>
 </div>
 </div>
+
+<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+    @csrf
+</form>

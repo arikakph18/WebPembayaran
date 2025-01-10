@@ -7,7 +7,7 @@ use App\Http\Controllers\registerController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('auth.login');
+    return redirect()->route('login');
 });
 
 // Route::get('/dashboard' ,[dashboardController::class, 'admin.dashboard']);

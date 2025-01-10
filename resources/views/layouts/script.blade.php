@@ -13,3 +13,10 @@
 <!-- Need: Apexcharts -->
 <script src="{{asset('template')}}/assets/extensions/apexcharts/apexcharts.min.js"></script>
 <script src="{{asset('template')}}/assets/static/js/pages/dashboard.js"></script>
+
+<script>
+        function logout(){
+            event.preventDefault();
+            document.getElementById('logout-form').submit();
+        }
+    </script>
