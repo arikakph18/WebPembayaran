@@ -44,7 +44,7 @@
             
             <li
                 class="sidebar-item active ">
-                <a href="index.html" class='sidebar-link'>
+                <a href="{{route('dashboard')}}" class='sidebar-link' onclick="dashboard()">
                     <i class="bi bi-grid-fill"></i>
                     <span>Dashboard</span>
                 </a>
@@ -54,7 +54,7 @@
 
             <li
                 class="sidebar-item  ">
-                <a href="form-layout.html" class='sidebar-link'>
+                <a href="{{route('payment')}}" class='sidebar-link' onclick="payment()" >
                     <i class="bi bi-file-earmark-medical-fill"></i>
                     <span>Data Payment</span>
                 </a>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\RegistController;
 use App\Http\Controllers\registerController;
 use Illuminate\Support\Facades\Route;
@@ -25,4 +26,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
+
+Route::get('/payment',[PaymentController::class, 'index'])->name('payment');
+Route::get('/create_payment', [PaymentController::class, 'create'])->name('create');
+// Definisikan route untuk menyimpan data pembayaran
+Route::post('/payment', [PaymentController::class, 'store'])->name('payment.store');
 

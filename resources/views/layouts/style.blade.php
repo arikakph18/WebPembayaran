@@ -10,3 +10,6 @@
 
   <!-- css login -->
   <link rel="stylesheet" href="{{asset('template')}}/./assets/compiled/css/auth.css">
+
+  <!-- css table payment -->
+ 
