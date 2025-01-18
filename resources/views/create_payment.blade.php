@@ -158,6 +158,17 @@
                                         @enderror
                                     </div>
                                 </div>
+                                <!-- Input untuk mencatat catatan tambahan -->
+                                  <div class="col-md-6 col-12">
+                                      <div class="form-group">
+                                          <label for="note-column">Note</label>
+                                          <input type="text" id="note-column" class="form-control" name="note" placeholder="Catatan">
+                                          @error('note')
+                                              <div class="text-danger">{{ $message }}</div>
+                                          @enderror
+                                      </div>
+                                  </div>
+
 
                                 <!-- Tombol submit dan reset -->
                                 <div class="col-12 d-flex justify-content-end">

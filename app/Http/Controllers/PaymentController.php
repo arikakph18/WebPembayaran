@@ -21,42 +21,41 @@ class PaymentController extends Controller
         return view('create_payment'); // Menampilkan form create
     }
 
-    // Menyimpan data pembayaran baru ke database
-    use App\Models\Payment; // Import model Payment
-
     public function store(Request $request)
     {
-    // Validasi input data
-    $request->validate([
-        'tgl-column' => 'required|date',
-        'dbank-column' => 'required|string',
-        'jtf-column' => 'required|numeric',
-        'month' => 'required|string',
-        'name-column' => 'required|string',
-        'level-column' => 'required|string',
-        'kelas' => 'required|string',
-        'status-column' => 'required|string',
-        'harga' => 'required|numeric',
-        'minplus-column' => 'nullable|string',
-    ]);
-
-    // Simpan data ke tabel payment
-    Payment::create([
-        'tgl' => $request->input('tgl-column'),
-        'data_bank' => $request->input('dbank-column'),
-        'jumlah_transfer' => $request->input('jtf-column'),
-        'month' => $request->input('month'),
-        'nama_anak' => $request->input('name-column'),
-        'level' => $request->input('level-column'),
-        'kelas' => $request->input('kelas'),
-        'status' => $request->input('status-column'),
-        'harga' => $request->input('harga'),
-        'lebih_kurang' => $request->input('minplus-column'),
-    ]);
-
-    return redirect()->route('payment.index')->with('success', 'Data pembayaran berhasil disimpan');
-}
-
+        // Validasi input data
+        $request->validate([
+            'tgl-column' => 'required|date',
+            'dbank-column' => 'required|string',
+            'jtf-column' => 'required|numeric',
+            'month' => 'required|string',
+            'name-column' => 'required|string',
+            'level-column' => 'required|string',
+            'kelas' => 'required|string',
+            'status-column' => 'required|string',
+            'harga' => 'required|numeric',
+            'minplus-column' => 'nullable|string',
+            'note' => 'nullable|string', // Tambahkan validasi untuk kolom 'note' jika diperlukan
+        ]);
+    
+        // Simpan data ke tabel payment
+        Payment::create([
+            'tanggal' => $request->input('tgl-column'),
+            'data_bank' => $request->input('dbank-column'),
+            'jumlah_transfer' => $request->input('jtf-column'),
+            'month' => $request->input('month'),
+            'nama_anak' => $request->input('name-column'),
+            'level' => $request->input('level-column'),
+            'kelas' => $request->input('kelas'),
+            'status' => $request->input('status-column'),
+            'harga' => $request->input('harga'),
+            'lebih_kurang' => $request->input('minplus-column'),
+            'note' => $request->input('note'), // Menambahkan kolom 'note'
+        ]);
+    
+        return redirect()->route('payment')->with('success', 'Data pembayaran berhasil disimpan');
+    }
+    
 
     // // Menampilkan form untuk mengedit data pembayaran
     // public function edit($id)
