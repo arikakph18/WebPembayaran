@@ -2,25 +2,44 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
 {
-    // Nama tabel di database
-    protected $table = 'payments'; // Mengacu ke tabel 'payments'
+    use HasFactory;
 
-    // Kolom yang dapat diisi secara massal
+    /**
+     * The table associated with the model.
+     */
+    protected $table = 'payments';
+
+    /**
+     * The attributes that are mass assignable.
+     */
     protected $fillable = [
-        'tanggal',          // Tanggal pembayaran
-        'data_bank',        // Data bank
-        'jumlah_transfer',  // Jumlah transfer
-        'month',            // Bulan pembayaran
-        'nama_anak',        // Nama anak
-        'level',            // Level anak (contoh: Scratch)
-        'kelas',            // Jenis kelas (Offline/Online)
-        'status',           // Status pembayaran (Active/Inactive)
-        'lebih_kurang',     // Kelebihan/Kekurangan pembayaran
-        'note',             // Catatan tambahan
-        'harga'
+        'student_id',
+        'tanggal',
+        'pengirim',
+        'jumlah_transfer',
+        'bulan_bayar',
+        'selisih',
+        'harga',
+        'catatan',
     ];
+
+    /**
+     * The attributes that should be cast to native types.
+     */
+    protected $casts = [
+        'tanggal' => 'date',
+    ];
+
+    /**
+     * Define a relationship to the Student model (assuming it exists).
+     */
+    public function student()
+    {
+        return $this->belongsTo(Student::class);
+    }
 }

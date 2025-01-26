@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('payments', function (Blueprint $table) {
-            $table->decimal('harga', 10, 2)->after('status'); // Menambahkan kolom harga setelah kolom status
+        Schema::create('table_students', function (Blueprint $table) {
+            $table->id(); // Primary Key
+            $table->string('nama'); // Nama Siswa
+            $table->enum('status', ['Active', 'Reactive', 'Cuti', 'Stop']); // Status siswa
+            $table->timestamps(); // Created_at dan Updated_at
         });
     }
 
@@ -21,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('payments', function (Blueprint $table) {
-            $table->dropColumn('harga'); // Menghapus kolom harga jika migrasi dibatalkan
-        });
+        Schema::dropIfExists('table_students');
     }
 };

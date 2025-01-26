@@ -5,7 +5,10 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\RegistController;
 use App\Http\Controllers\registerController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
+
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -27,8 +30,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 });
 
-Route::get('/payment',[PaymentController::class, 'index'])->name('payment');
-Route::get('/create_payment', [PaymentController::class, 'create'])->name('create');
-// Definisikan route untuk menyimpan data pembayaran
-Route::post('/payment', [PaymentController::class, 'store'])->name('payment.store');
+// Route::get('/payment',[PaymentController::class, 'index'])->name('payment');
+Route::resource('products', ProductController::class)->except('show');
+Route::resource('students', StudentController::class);
+Route::resource('payment', PaymentController::class);
+// Route::get('/students/create', [StudentController::class, 'create'])->name('students.create');
 
+// Route::get('/create_payment', [PaymentController::class, 'create'])->name('create');
+// // Definisikan route untuk menyimpan data pembayaran
+// Route::post('/payment', [PaymentController::class, 'store'])->name('payment.store');

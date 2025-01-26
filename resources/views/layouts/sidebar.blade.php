@@ -3,7 +3,7 @@
     <div class="sidebar-header position-relative">
         <div class="d-flex justify-content-between align-items-center">
             <div class="logo">
-                <a href="index.html"><img src="./assets/compiled/svg/logo.svg" alt="Logo" srcset=""></a>
+                <a href="index.html"><img src="{{asset('template')}}./assets/compiled/svg/logo_loop.png" alt="Logo" srcset=""></a>
             </div>
             <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
@@ -54,7 +54,7 @@
 
             <li
                 class="sidebar-item  ">
-                <a href="{{route('payment')}}" class='sidebar-link' onclick="payment()" >
+                <a href="{{route('payment.index')}}" class='sidebar-link' onclick="payment()" >
                     <i class="bi bi-file-earmark-medical-fill"></i>
                     <span>Data Payment</span>
                 </a>
@@ -148,13 +148,17 @@
                 class="sidebar-item  has-sub">
                 <a href="#" class='sidebar-link'>
                     <i class="bi bi-journal-check"></i>
-                    <span>Form Validation</span>
+                    <span>Databases</span>
                 </a>
                 
                 <ul class="submenu ">
                     
                     <li class="submenu-item  ">
-                        <a href="form-validation-parsley.html" class="submenu-link">Parsley</a>
+                        <a href="{{route('products.index')}}" class="submenu-link"  onclick="products()">Product</a>
+                        
+                    </li>
+                    <li class="submenu-item  ">
+                        <a href="{{route('students.index')}}" class="submenu-link">Student</a>
                         
                     </li>
                     

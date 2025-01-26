@@ -27,7 +27,7 @@
 <div class="page-heading">
     <h3>Dashboard Admin</h3>
 </div> 
-<!-- @yield('content') -->
+@yield('content')
 
 @include('layouts.footer')
         </div>

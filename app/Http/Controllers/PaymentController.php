@@ -2,94 +2,94 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Student;
 use Illuminate\Http\Request;
-
 use App\Models\Payment;
 
 class PaymentController extends Controller
 {
-    // Menampilkan semua data pembayaran
+    /**
+     * Menampilkan semua data pembayaran.
+     */
     public function index()
     {
         $payments = Payment::all(); // Mengambil semua data dari tabel payments
-        return view('payment', compact('payments')); // Mengarahkan ke view dengan data
+        return view('payments.index', compact('payments')); // Menampilkan data ke view
     }
 
-    // Menampilkan form untuk menambahkan pembayaran baru
+    /**
+     * Menampilkan form untuk menambahkan pembayaran baru.
+     */
     public function create()
     {
-        return view('create_payment'); // Menampilkan form create
+        $students = Student::all();
+        return view('payments.create', compact('students')); // Menampilkan form create
     }
 
+    /**
+     * Menyimpan data pembayaran baru ke database.
+     */
     public function store(Request $request)
     {
         // Validasi input data
         $request->validate([
-            'tgl-column' => 'required|date',
-            'dbank-column' => 'required|string',
-            'jtf-column' => 'required|numeric',
-            'month' => 'required|string',
-            'name-column' => 'required|string',
-            'level-column' => 'required|string',
-            'kelas' => 'required|string',
-            'status-column' => 'required|string',
-            'harga' => 'required|numeric',
-            'minplus-column' => 'nullable|string',
-            'note' => 'nullable|string', // Tambahkan validasi untuk kolom 'note' jika diperlukan
+            'student_id' => 'required|integer',
+            'tanggal' => 'required|date',
+            'pengirim' => 'required|string|max:255',
+            'jumlah_transfer' => 'required|integer',
+            'bulan_bayar' => 'required|string|max:255',
+            'selisih' => 'nullable|string|max:255',
+            'harga' => 'required|integer',
+            'catatan' => 'nullable|string',
         ]);
-    
-        // Simpan data ke tabel payment
-        Payment::create([
-            'tanggal' => $request->input('tgl-column'),
-            'data_bank' => $request->input('dbank-column'),
-            'jumlah_transfer' => $request->input('jtf-column'),
-            'month' => $request->input('month'),
-            'nama_anak' => $request->input('name-column'),
-            'level' => $request->input('level-column'),
-            'kelas' => $request->input('kelas'),
-            'status' => $request->input('status-column'),
-            'harga' => $request->input('harga'),
-            'lebih_kurang' => $request->input('minplus-column'),
-            'note' => $request->input('note'), // Menambahkan kolom 'note'
-        ]);
-    
-        return redirect()->route('payment')->with('success', 'Data pembayaran berhasil disimpan');
+
+        // Simpan data ke database
+        Payment::create($request->all());
+
+        return redirect()->route('payment.index')->with('success', 'Pembayaran berhasil ditambahkan!');
     }
-    
 
-    // // Menampilkan form untuk mengedit data pembayaran
-    // public function edit($id)
-    // {
-    //     $payment = Payment::findOrFail($id); // Mengambil data berdasarkan ID
-    //     return view('payments.edit', compact('payment'));
-    // }
+    /**
+     * Menampilkan form untuk mengedit data pembayaran.
+     */
+    public function edit($id)
+    {
+        $payment = Payment::findOrFail($id); // Mengambil data berdasarkan ID
+        return view('payments.edit', compact('payment')); // Menampilkan form edit
+    }
 
-    // // Memperbarui data pembayaran di database
-    // public function update(Request $request, $id)
-    // {
-    //     $request->validate([
-    //         'tanggal' => 'required|date',
-    //         'data_bank' => 'required|string|max:255',
-    //         'jumlah_transfer' => 'required|numeric',
-    //         'month' => 'required|string|max:255',
-    //         'nama_anak' => 'required|string|max:255',
-    //         'level' => 'required|string|max:255',
-    //         'kelas' => 'required|string|max:255',
-    //         'status' => 'required|string|max:255',
-    //         'lebih_kurang' => 'nullable|string|max:255',
-    //         'note' => 'nullable|string|max:255',
-    //     ]);
+    /**
+     * Memperbarui data pembayaran di database.
+     */
+    public function update(Request $request, $id)
+    {
+        // Validasi input data
+        $request->validate([
+            'student_id' => 'required|integer',
+            'tanggal' => 'required|date',
+            'pengirim' => 'required|string|max:255',
+            'jumlah_transfer' => 'required|integer',
+            'bulan_bayar' => 'required|string|max:255',
+            'selisih' => 'nullable|string|max:255',
+            'harga' => 'required|integer',
+            'catatan' => 'nullable|string',
+        ]);
 
-    //     $payment = Payment::findOrFail($id);
-    //     $payment->update($request->all()); // Memperbarui data di database
-    //     return redirect()->route('payments.index')->with('success', 'Payment updated successfully!');
-    // }
+        // Cari data berdasarkan ID dan perbarui
+        $payment = Payment::findOrFail($id);
+        $payment->update($request->all());
 
-    // // Menghapus data pembayaran dari database
-    // public function destroy($id)
-    // {
-    //     $payment = Payment::findOrFail($id);
-    //     $payment->delete(); // Menghapus data
-    //     return redirect()->route('payments.index')->with('success', 'Payment deleted successfully!');
-    // }
+        return redirect()->route('payments.index')->with('success', 'Data pembayaran berhasil diperbarui!');
+    }
+
+    /**
+     * Menghapus data pembayaran dari database.
+     */
+    public function destroy($id)
+    {
+        $payment = Payment::findOrFail($id);
+        $payment->delete();
+
+        return redirect()->route('payments.index')->with('success', 'Data pembayaran berhasil dihapus!');
+    }
 }
