@@ -20,8 +20,16 @@
                                     </div>
                                     <div class="col-md-8 form-group">
                                         <select id="nama-produk" class="form-control" name="nama_produk" required>
-                                            <option value="Robotics">Robotics</option>
-                                            <option value="Coding Class">Coding Class</option>
+                                            <option value="Robotics">Robotics Class-Creativity</option>
+                                            <option value="Robotics">Robotics Class-Construction</option>
+                                            <option value="Robotics">Robotics Class-Robotics</option>
+                                            <option value="Coding Class">Coding Class-Scratch Jr</option>
+                                            <option value="Coding Class">Coding Class-Scratch</option>
+                                            <option value="Coding Class">Coding Class-AI</option>
+                                            <option value="Coding Class">Coding Class-MIT</option>
+                                            <option value="Coding Class">Coding Class-Arduino</option>
+                                            <option value="Coding Class">Coding Class-Python</option>
+                                            <option value="Coding Class">Coding Class-Web</option>
                                         </select>
                                     </div>
                                     

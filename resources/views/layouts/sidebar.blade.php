@@ -54,7 +54,7 @@
 
             <li
                 class="sidebar-item  ">
-                <a href="{{route('payment.index')}}" class='sidebar-link' onclick="payment()" >
+                <a href="{{route('payments.index')}}" class='sidebar-link' onclick="payments()" >
                     <i class="bi bi-file-earmark-medical-fill"></i>
                     <span>Data Payment</span>
                 </a>

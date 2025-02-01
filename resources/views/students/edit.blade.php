@@ -60,12 +60,17 @@
                                 name="product_id" 
                                 required>
                                 <option value="" disabled>Pilih Produk</option>
-        @foreach ($products as $product)
+        <!-- @foreach ($products as $product)
             <option value="{{ $product->id }}" 
                 {{ $student->products->pluck('id')->contains($product->id) ? 'selected' : '' }}>
                 {{ $product->nama_produk }}
             </option>
-        @endforeach
+        @endforeach -->
+
+           @foreach ($products as $product)
+                                    <option value="{{ $product->id }}">{{ $product->nama_produk }} - {{ $product->level }}</option>
+                                    
+                                @endforeach
                             </select>
                             @error('product_id')
                                 <div class="text-danger">{{ $message }}</div>

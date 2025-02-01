@@ -42,7 +42,6 @@
                                 <option value="Cuti">Cuti</option>
                             </select>
                         </div>
-
                         <!-- Select Produk -->
                         <div class="form-group mb-3">
                             <label for="products" class="form-label">Produk</label>

@@ -11,7 +11,7 @@
             <div class="card">
                 <div class="card-header">
                     <h4>Daftar Students</h4>
-                    <a href="{{ route('students.create') }}" class="btn btn-primary">Tambah Relasi Student-Produk</a>
+                    <a href="{{ route('students.create') }}" class="btn btn-primary">Tambah data murid</a>
                 </div>
 
                 <div class="card-body">
@@ -24,6 +24,7 @@
                                 <th>Produk</th>
                                 <th>Level</th>
                                 <th>Status</th>
+                                <th>Tipe</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -54,6 +55,15 @@
                                         @endif
                                     </td>
                                     <td class="text-bold-500">{{ $st->status }}</td>
+                                    <td class="text-bold-500">
+                                        @if ($st->products->isNotEmpty())
+                                            @foreach ($st->products as $product)
+                                                {{ $product->tipe }}<br>
+                                            @endforeach
+                                        @else
+                                            No Products
+                                        @endif
+                                    </td>
                                     <td class="text-bold-500">
                                         <a href="{{ route('students.edit', $st->id) }}" class="btn btn-warning btn-sm">Edit</a>
                                         <form action="{{ route('students.destroy', $st->id) }}" method="POST" style="display: inline;">

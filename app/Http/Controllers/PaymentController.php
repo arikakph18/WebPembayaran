@@ -2,19 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use App\Models\Payment;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
 
 class PaymentController extends Controller
 {
     /**
      * Menampilkan semua data pembayaran.
      */
-    public function index()
+     public function index()
     {
-        $payments = Payment::all(); // Mengambil semua data dari tabel payments
-        return view('payments.index', compact('payments')); // Menampilkan data ke view
+        
+        $payments = Payment::with('student.products')->get();
+        return view('payments.index', compact('payments'));
     }
 
     /**
@@ -23,7 +27,17 @@ class PaymentController extends Controller
     public function create()
     {
         $students = Student::all();
-        return view('payments.create', compact('students')); // Menampilkan form create
+        $products = Product::all();
+        return view('payments.create', compact('students', 'products'));
+    }
+
+    /**
+     * Mengambil harga produk berdasarkan ID.
+     */
+    public function getProductPrice($id)
+    {
+        $product = Product::findOrFail($id);
+        return response()->json($product);
     }
 
     /**
@@ -31,7 +45,6 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        // Validasi input data
         $request->validate([
             'student_id' => 'required|integer',
             'tanggal' => 'required|date',
@@ -41,12 +54,13 @@ class PaymentController extends Controller
             'selisih' => 'nullable|string|max:255',
             'harga' => 'required|integer',
             'catatan' => 'nullable|string',
+            'level' => 'nullable|string|max:255',
+            'status' => 'nullable|string|max:255',
         ]);
 
-        // Simpan data ke database
         Payment::create($request->all());
 
-        return redirect()->route('payment.index')->with('success', 'Pembayaran berhasil ditambahkan!');
+        return redirect()->route('payments.index')->with('success', 'Pembayaran berhasil ditambahkan!');
     }
 
     /**
@@ -54,8 +68,8 @@ class PaymentController extends Controller
      */
     public function edit($id)
     {
-        $payment = Payment::findOrFail($id); // Mengambil data berdasarkan ID
-        return view('payments.edit', compact('payment')); // Menampilkan form edit
+        $payment = Payment::findOrFail($id);
+        return view('payments.edit', compact('payment'));
     }
 
     /**
@@ -63,7 +77,6 @@ class PaymentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Validasi input data
         $request->validate([
             'student_id' => 'required|integer',
             'tanggal' => 'required|date',
@@ -73,9 +86,10 @@ class PaymentController extends Controller
             'selisih' => 'nullable|string|max:255',
             'harga' => 'required|integer',
             'catatan' => 'nullable|string',
+            'level' => 'nullable|string|max:255',
+            'status' => 'nullable|string|max:255',
         ]);
 
-        // Cari data berdasarkan ID dan perbarui
         $payment = Payment::findOrFail($id);
         $payment->update($request->all());
 
@@ -91,5 +105,18 @@ class PaymentController extends Controller
         $payment->delete();
 
         return redirect()->route('payments.index')->with('success', 'Data pembayaran berhasil dihapus!');
+    }
+
+    /**
+     * Menambahkan kolom baru ke tabel payments jika belum ada.
+     */
+    public function updateTableSchema()
+    {
+        if (!Schema::hasColumns('payments', ['level', 'status'])) {
+            Schema::table('payments', function (Blueprint $table) {
+                $table->string('level')->nullable()->after('harga');
+                $table->string('status')->nullable()->after('level');
+            });
+        }
     }
 }

@@ -9,6 +9,13 @@ use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
+
+    public function getStudentDetails($id)
+{
+    $student = Student::with('products')->findOrFail($id);
+    return response()->json($student);
+}
+
     /**
      * Display a listing of the resource.
      */
